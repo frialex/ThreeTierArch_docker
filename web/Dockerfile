@@ -2,12 +2,16 @@ FROM microsoft/aspnetcore
 
 #https://github.com/Microsoft/iis-docker/blob/master/nanoserver/Dockerfile
 
-
+#TODO: docker attach still connects to a cmd shell. Is there a way to change that?
 SHELL ["powershell", "-command"]
 RUN New-Item c:\becauseWeSwitchedTheShellToPowershell
 
 
 MAINTAINER someResponsiblePerson@email.com
+
+#Docker daemon has http endpoints for everything available in the cli..
+#We can build a "reporting dashboard" using those endpoints.
+
 
 
 #anlogy: stickers on the container
@@ -31,6 +35,7 @@ LABEL   travelers.version="aug18" \
 COPY source /web
 
 #[TODO: bind mount source/bin -> /web]
+#it requires passing 
 #https://docs.docker.com/engine/admin/volumes/bind-mounts/#start-a-container-with-a-bind-mount
 
 
