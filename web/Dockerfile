@@ -42,7 +42,7 @@ COPY source /web
 
 #https://docs.docker.com/engine/reference/builder/#workdir
 WORKDIR /web
-RUN ./start.ps1
+ENTRYPOINT ./start.ps1
 
 
 

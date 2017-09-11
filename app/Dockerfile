@@ -1,10 +1,20 @@
-#FROM travelers/appserver
+FROM microsoft/windowsservercore
+SHELL ["powershell", "-command"]
+
 
 #TODO:
+#like the rest of them
 
-#LABEL ... like the rest of them
+MAINTAINER  someResponsiblePerson@email.comm
+LABEL   travelers.version="aug18" \
+        travelers.train="AgileTrainTeam" \
+        travelers.train.dev="name@email;name@email" \
+        travelers.train.certified="name@email;name@email;name@email" \
+        travelers.train.notify="name@email;name@email;name@email" 
 
 
-
+COPY source /app
 WORKDIR /app
-ENTRYPOINT ["startWCFEndpoint.exe", "arguments"]
+#RUN infiniteloop.ps1 will cause the image builder to run that loop. It will become stuck in that loop ..
+ENTRYPOINT ./example.ps1
+ 
