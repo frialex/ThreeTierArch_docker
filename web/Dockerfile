@@ -14,7 +14,7 @@ MAINTAINER someResponsiblePerson@email.com
 
 
 
-#anlogy: stickers on the container
+#analogy: stickers on the container
 LABEL   travelers.version="aug18" \
         travelers.train="AgileTrainTeam" \
         travelers.train.dev="name@email;name@email" \
@@ -24,25 +24,19 @@ LABEL   travelers.version="aug18" \
         travelers.train.notify="anyone@that.wants;to@be.notified;of@movements"
 
 
-#TODO: These should be part of the image... 
-#RUN mkdir d-read
-#RUN mkdir logs
+
+#check out VOLUME or :  https://docs.docker.com/engine/admin/volumes/bind-mounts/#start-a-container-with-a-bind-mount
 
 
-#host/source should not be copied over to container.
-#This could be expensive...Going to try and use a volume instead
-#/web should mount to /bin of the Web.UI project
-COPY source /web
-
-#[TODO: bind mount source/bin -> /web]
-#it requires passing 
-#https://docs.docker.com/engine/admin/volumes/bind-mounts/#start-a-container-with-a-bind-mount
+COPY api/bin /web
 
 
+
+EXPOSE 5000 80
 
 #https://docs.docker.com/engine/reference/builder/#workdir
 WORKDIR /web
-ENTRYPOINT ./start.ps1
+ENTRYPOINT ["dotnet", "api.dll"]
 
 
 
