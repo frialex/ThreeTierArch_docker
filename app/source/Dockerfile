@@ -1,4 +1,4 @@
-FROM microsoft/windowsservercore
+FROM  travelers/claim-base
 SHELL ["powershell", "-command"]
 
 
@@ -13,8 +13,8 @@ LABEL   travelers.version="aug18" \
         travelers.train.notify="name@email;name@email;name@email" 
 
 
-COPY source /app
+COPY bin /app
 WORKDIR /app
 #RUN infiniteloop.ps1 will cause the image builder to run that loop. It will become stuck in that loop ..
-ENTRYPOINT ./example.ps1
+ENTRYPOINT ["dotnet", "app.dll"]
  

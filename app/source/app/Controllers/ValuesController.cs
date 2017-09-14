@@ -4,8 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-
-namespace api.Controllers
+namespace app.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
@@ -14,7 +13,7 @@ namespace api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "App Server: value1", "App Server: value2" };
         }
 
         // GET api/values/5
