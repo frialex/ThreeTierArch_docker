@@ -13,7 +13,7 @@ namespace app.Controllers
         IHostingEnvironment ENV {get; set;}
         public ValuesController(IHostingEnvironment hopefullyThisIsDI)
         {
-            ENV = hopefullyThisIsDI;
+           ENV = hopefullyThisIsDI;
         }
 
         
@@ -22,13 +22,15 @@ namespace app.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+
+            var networks = System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces().ToList().Select( nic => nic.GetIPStatistics()).Select( ip => Newtonsoft.Json.JsonConvert.SerializeObject(ip)).Aggregate( (p, n) => $"{p} {n}");
             
             return new string[] { 
                 $"ApplicationName: {ENV.ApplicationName}", 
                 $"ContentRootPath: {ENV.ContentRootPath}",
                 $"EnvironmentName : {ENV.EnvironmentName}",
                 $"WebRootPath : {ENV.WebRootPath}",
-                $""
+                $"Networks: {networks}"
                 };
         }
 

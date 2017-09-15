@@ -13,8 +13,12 @@ LABEL   travelers.version="aug18" \
         travelers.train.notify="name@email;name@email;name@email" 
 
 
-COPY bin /app
+COPY  app/bin /app
 WORKDIR /app
+
+
+EXPOSE 5000
+
 #RUN infiniteloop.ps1 will cause the image builder to run that loop. It will become stuck in that loop ..
 ENTRYPOINT ["dotnet", "app.dll"]
  

@@ -30,6 +30,22 @@ $mount = " --mount file_system_mount_to_container"
     # it then forwards the call to app. This process repeats for app -> database
 
 
+function docker-run-app($image)
+{
+    $name = "--name kewlappservice"
+    $exposeAllPorts = "-P"
+    $autoRemove = "--rm"
+    $hostname = "--hostname kewlservice" #TODO: How come this is not registered with the network? --name is used instead
+
+
+    $parameter = "$name $exposeAllPorts $autoRemove $hostname"
+    $wow = "docker run -dt $parameter $image"
+
+    write-host $wow
+    Invoke-Expression $wow
+}
+
+
 function docker-run-web($image)
 {
     $name = " --name kewlwebapp"  #by setting a name to the container, we can select it easier: $web = docker container inspect nameOf_web_container | ConvertFrom-Json
@@ -70,6 +86,11 @@ function runit()
 
     $webid = docker-run-web "kewlwebapp:aug17"
     
+
+
+    write-host "-----------------Running powershell container on app------------------"
+    write-host "----------------------------------------------------------------------"
+    $webid = docker-run-app "kewlappservice:aug17"
 
 
     write-host "-----------------Running powershell container on web------------------"

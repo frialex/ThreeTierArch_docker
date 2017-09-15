@@ -1,50 +1,15 @@
 cd $PSScriptRoot
 
-function build-webimage()
+
+
+function build-app
 {
-    cd $PSScriptRoot
-    cd web
+    cd app/source/app
+    rm bin
+    dotnet build -o bin
 
+    cd ..
 
-$tag = " --tag kewlwebapp:aug17"
-$hostfile = " --add-host somerandom.com:127.0.0.1"
-#--build-arg  isanother=goodone space=seperated?
-#--iidfile fileToWriteImageIdIn
-#--isolation=[hyperv|process]   only hyperv is available on windows 10
-#--network 
-
-    
-    docker-build $tag + $hostfile
-}
-
-
-function build-appimage()
-{
-    cd $PSScriptRoot
-    cd app
-    $tag = " --tag awesome-app-service:aug17"
-
-    docker-build $tag
+    docker build -t kewlappservice:aug17  . 
 
 }
-
-#assuming that this is called from the directory with Dockerfile
-function docker-build($arguments)
-{
-    write-host $arguments
-
-    $command = "docker build  $arguments ."
-    write-host $command
-
-    iex $command
-
-}
-
-
-
-
-
-#-------Start
-#build-appimage
-
-build-webimage
