@@ -3,17 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Hosting;
 
 namespace app.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
-        // GET api/values
+        IHostingEnvironment ENV {get; set;}
+        public ValuesController(IHostingEnvironment hopefullyThisIsDI)
+        {
+            ENV = hopefullyThisIsDI;
+        }
+
+        
+        [Route("/")]
+        [Route("/api/values")]
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "App Server: value1", "App Server: value2" };
+            
+            return new string[] { 
+                $"ApplicationName: {ENV.ApplicationName}", 
+                $"ContentRootPath: {ENV.ContentRootPath}",
+                $"EnvironmentName : {ENV.EnvironmentName}",
+                $"WebRootPath : {ENV.WebRootPath}",
+                $""
+                };
         }
 
         // GET api/values/5

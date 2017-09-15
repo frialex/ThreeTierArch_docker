@@ -43,7 +43,7 @@ function docker-run-web($image)
     $wow = "docker run -dt $parameter $image"
     write-host $wow
 
-    #Invoke-Expression $wow
+    Invoke-Expression $wow
 }
 
 function docker-run-web_with-shell($image)
@@ -60,7 +60,7 @@ function docker-run-web_with-shell($image)
     $command = "docker run -d $parameter $image"
     write-host $command
 
-    #Invoke-Expression $command
+    Invoke-Expression $command
 }
 
 function runit()

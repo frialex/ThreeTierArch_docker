@@ -26,6 +26,9 @@ namespace app
             services.AddMvc();
         }
 
+
+        //TODO: Add default route for localhost:5000 -> localhost:5000/api/values
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -35,6 +38,8 @@ namespace app
             }
 
             app.UseMvc();
+
+            
         }
     }
 }
