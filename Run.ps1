@@ -93,17 +93,21 @@ function runit()
 
     write-host "-----------------Running powershell container on app------------------"
     write-host "----------------------------------------------------------------------"
-    $webid = docker-run-app "claim/crow/appservice:aug17"
+    $appid = docker-run-app "claim/crow/appservice:aug17"
 
 
     write-host "-----------------Running powershell container on web------------------"
     write-host "----------------------------------------------------------------------"
     
-    docker-run-web_with-shell "claim/crow/webapi:aug17"
-
+    $shellid = docker-run-web_with-shell "claim/crow/webapi:aug17"
 
 
     write-host "Web containers id = $webid"
+
+    #return all three so caller can decide...
+    #hack.. assuming that callers will know the order: WEB, APP, SHELL    .. and index appropriately
+
+    ($webid, $appid, $shellid)
 }
 
 function kill-crow()
