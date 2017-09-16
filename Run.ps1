@@ -32,10 +32,12 @@ $mount = " --mount file_system_mount_to_container"
 
 function docker-run-app($image)
 {
-    $name = "--name kewlappservice"
+    $name = "--name crow.appservice"
     $exposeAllPorts = "-P"
     $autoRemove = "--rm"
-    $hostname = "--hostname kewlservice" #TODO: How come this is not registered with the network? --name is used instead
+
+    #TODO: How come this is not registered with the network? --name is used instead
+    $hostname = "--hostname crowappservice" 
 
 
     $parameter = "$name $exposeAllPorts $autoRemove $hostname"
@@ -48,10 +50,11 @@ function docker-run-app($image)
 
 function docker-run-web($image)
 {
-    $name = " --name kewlwebapp"  #by setting a name to the container, we can select it easier: $web = docker container inspect nameOf_web_container | ConvertFrom-Json
+    #in name, docker only allows    [a-zA-Z0-9][a-zA-Z0-9_.-]
+    $name = " --name crow.webapi"  #by setting a name to the container, we can select it easier: $web = docker container inspect nameOf_web_container | ConvertFrom-Json
     $exposeAllPorts = " -P" #capital p
     $autoRemove = " --rm "
-    $hostname = " --hostname kewl"
+    $hostname = " --hostname crowwebapi"
 
 
     $parameter = "$name $exposeAllPorts $autoRemove $hostname"
@@ -65,9 +68,9 @@ function docker-run-web($image)
 function docker-run-web_with-shell($image)
 {
     
-    $name = " --name webappshell"
+    $name = " --name crow.shell"
     $autoRemove = " --rm"
-    $hostname =" --hostname kewlshell"
+    $hostname =" --hostname crow/shell"
     $entryPoint = " --entrypoint powershell  -it" #need to add -interactive because we want to be dropped in to powershell and -tty just incase
 
     $parameter = "$name $autoRemove $hostname $entryPoint"
@@ -84,21 +87,27 @@ function runit()
     write-host "---------------- Creating container from web image -------------------"
     write-host "----------------------------------------------------------------------"
 
-    $webid = docker-run-web "kewlwebapp:aug17"
+    $webid = docker-run-web "claim/crow/webapi:aug17"
     
 
 
     write-host "-----------------Running powershell container on app------------------"
     write-host "----------------------------------------------------------------------"
-    $webid = docker-run-app "kewlappservice:aug17"
+    $webid = docker-run-app "claim/crow/appservice:aug17"
 
 
     write-host "-----------------Running powershell container on web------------------"
     write-host "----------------------------------------------------------------------"
     
-    docker-run-web_with-shell "kewlwebapp:aug17"
+    docker-run-web_with-shell "claim/crow/webapi:aug17"
 
 
 
     write-host "Web containers id = $webid"
+}
+
+function kill-crow()
+{
+    docker container rm -f crow.shell crow.appservice crow.webapi
+
 }

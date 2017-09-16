@@ -1,4 +1,4 @@
-FROM microsoft/aspnetcore
+FROM travelers/claim/base/2018
 
 #https://github.com/Microsoft/iis-docker/blob/master/nanoserver/Dockerfile
 

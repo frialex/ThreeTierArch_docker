@@ -1,4 +1,4 @@
-FROM  travelers/claim-base
+FROM  travelers/claim/base/2018
 SHELL ["powershell", "-command"]
 
 
