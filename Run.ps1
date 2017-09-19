@@ -37,7 +37,7 @@ function docker-run-app($image)
     $autoRemove = "--rm"
 
     #TODO: How come this is not registered with the network? --name is used instead
-    $hostname = "--hostname crowappservice" 
+    $hostname = "--hostname crow/appservice" 
 
 
     $parameter = "$name $exposeAllPorts $autoRemove $hostname"
@@ -54,7 +54,7 @@ function docker-run-web($image)
     $name = " --name crow.webapi"  #by setting a name to the container, we can select it easier: $web = docker container inspect nameOf_web_container | ConvertFrom-Json
     $exposeAllPorts = " -P" #capital p
     $autoRemove = " --rm "
-    $hostname = " --hostname crowwebapi"
+    $hostname = " --hostname crow/webapi"
 
 
     $parameter = "$name $exposeAllPorts $autoRemove $hostname"

@@ -14,6 +14,13 @@ namespace api.Controllers
         [HttpGet]
         public IEnumerable<string> Get()
         {
+
+            //TODO: Call "kewlappservice/api/values" here and return with information from  this container
+
+            //TODO: Information to gather:
+                //IP Address, Hostname
+                //name of the application and path
+
             return new string[] { "value1", "value2" };
         }
 

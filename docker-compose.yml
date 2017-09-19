@@ -1,5 +1,40 @@
 version: "3"
+
+#These are three useful compose top level elements: services, networks, volumes
+
+#Defines how containers are created and put together. Just like "docker run" options
 services:
- web:
-  image: kewlwebapp:aug17
+  web:
+    image: claim/crow/webapi:aug17
+    ports: 
+      - "80"
+    networks:
+      # - denotes a 'list entry'. Which means we can list multiple networks for container to join.. making a three tier arch easy: app server joins both front-end and back-end network
+      - crownet
+
+
+
+#Just like "docker network create". You can define new network and its properties here. Services will have to reference them inorder to gain access to that network.
+networks:
+  crownet:
+
+  backend-crownet:
+
+
+#Just like "docker volume create", and because of that the service entries must reference a volume for it to become available on the contianer
+#C:\ProgramData\Docker\volumes
+volumes:
+  crowvolume:
+
+
+#TODO: Not sure if the usage of  advertise-addr here is correct. Need to read more about it
+# https://docs.docker.com/engine/reference/commandline/swarm_init/#--advertise-addr
+  #1) docker swarm init --advertise-addr 127.0.0.1:80
+
+
+  #2) docker stack deploy --compose-file docker-compose.yml crowstack
+
+  #TODO: At this point, how would the consumer quickly access the web node from the swarm?
+  #guess => The swarm must provide a single endpoint, which would be sent to the manager node,
+  # The manager then dispatches this request to worker nodes, who then replies through the manager on to the client
   

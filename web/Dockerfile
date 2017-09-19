@@ -32,7 +32,7 @@ COPY api/bin /web
 
 
 
-EXPOSE 5000 80
+EXPOSE 5000
 
 #https://docs.docker.com/engine/reference/builder/#workdir
 WORKDIR /web

@@ -2,12 +2,22 @@ $root = $PSScriptRoot
 
 Write-Host "Running full automation on $root"
 
+#---------------------------------------------------------------------------------------------------------
+#---Commenting out build for now since there are no changes to the docker files that produce those images.
+#---------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------
+#----- uncomment to apply changes to the code on to the images -------------------------------------------
 Write-Host "Creating image from source"
 #./build.ps1
 
 
+
+#---------------------------------------------------------------------------------------------------------
+#------------- This is basically the job of "container orchastrators" and "YML" files --------------------
 Write-Host "Importing function to run containers from image"
 ./Run.ps1
+
+
 
 $allcontainerids = runit 
 
