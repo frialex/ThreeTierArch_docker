@@ -6,19 +6,31 @@ version: "3"
 services:
   web:
     image: claim/crow/webapi:aug17
+    container_name: crow.webapi
+    #TODO: Should hostnames have / in them?
+    hostname: crow/webapi
     ports: 
-      - "80"
+      - "80:5000"
     networks:
       # - denotes a 'list entry'. Which means we can list multiple networks for container to join.. making a three tier arch easy: app server joins both front-end and back-end network
       - crownet
-
+  shell:
+    image: claim/crow/webapi:aug17
+    container_name: crow.shell
+    hostname: crow/shell
+    stdin_open: true
+    tty: true
+    entrypoint:
+      - powershell
+    networks:
+      - crownet
+    
 
 
 #Just like "docker network create". You can define new network and its properties here. Services will have to reference them inorder to gain access to that network.
 networks:
   crownet:
 
-  backend-crownet:
 
 
 #Just like "docker volume create", and because of that the service entries must reference a volume for it to become available on the contianer
@@ -37,4 +49,10 @@ volumes:
   #TODO: At this point, how would the consumer quickly access the web node from the swarm?
   #guess => The swarm must provide a single endpoint, which would be sent to the manager node,
   # The manager then dispatches this request to worker nodes, who then replies through the manager on to the client
+
+
+  #3) docker service ls
+      #find the name of the service and then
+      #docker service inspect name_of_service
+
   

@@ -13,6 +13,10 @@ MAINTAINER someResponsiblePerson@email.com
 #We can build a "reporting dashboard" using those endpoints.
 
 
+#Docker daemon has http endpoints for everything available in the cli..
+#We can build a "reporting dashboard" using those endpoints.
+
+
 
 #analogy: stickers on the container
 LABEL   travelers.version="aug18" \

@@ -49,6 +49,17 @@ function Get-ContainerIP($containerId)
     $ip4real
 }
 
+function Try-HittingContainer($ip, $port = 80)
+{
+    $url = "http://${ip}:${port}/api/values"
+
+    Write-Host "Http -> $url"
+    $resp = Invoke-WebRequest $url
+    Write-Host " Server -> $resp "
+
+    $resp
+}
+
 function Open-ChromeOnContainer($containerId){
     $crowWebIP = Get-ContainerIP $containerId
     
