@@ -1,4 +1,5 @@
 $root = $PSScriptRoot
+cd $root
 
 Write-Host "Running full automation on $root"
 
@@ -8,14 +9,14 @@ Write-Host "Running full automation on $root"
 #---------------------------------------------------------------------------------------------------------
 #----- uncomment to apply changes to the code on to the images -------------------------------------------
 Write-Host "Creating image from source"
-#./build.ps1
+Import-Module ./build.psm1
 
 
 
 #---------------------------------------------------------------------------------------------------------
 #------------- This is basically the job of "container orchastrators" and "YML" files --------------------
 Write-Host "Importing function to run containers from image"
-./Run.ps1
+Import-Module ./Run.psm1
 
 
 
